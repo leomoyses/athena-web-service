@@ -29,6 +29,21 @@ $router->group(['prefix' => 'userconfig'], function (\Laravel\Lumen\Routing\Rout
     $router->get('/save', 'PleaseDontTestViaBrowserController@please');
 });
 
+$router->group(['prefix' => 'charconfig'], function (\Laravel\Lumen\Routing\Router $router) {
+    $router->post('/load', [
+		'as' => 'usercfg-load',
+		'uses' => 'UserConfigController@load',
+        'middleware' => 'ro-auth:false',
+	]);
+    $router->post('/save', [
+		'middleware' => 'ro-auth',
+		'as' => 'usercfg-save',
+		'uses' => 'UserConfigController@save'
+	]);
+    $router->get('/load', 'PleaseDontTestViaBrowserController@please');
+    $router->get('/save', 'PleaseDontTestViaBrowserController@please');
+});
+
 $router->group(['prefix' => 'emblem'], function (\Laravel\Lumen\Routing\Router $router) {
     $router->post('/upload',[
         'middleware' => 'ro-auth',
